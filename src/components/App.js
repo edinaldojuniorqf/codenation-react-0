@@ -11,14 +11,22 @@ class App extends Component {
     this.state = {
       searchString: ''
     }
+
+    this.handleSearch = this.handleSearch.bind(this)
+  }
+
+  handleSearch (searchString) {
+    this.setState({ searchString })
   }
 
   getRecipesItems () {
+    let re = new RegExp(this.state.searchString, 'gi')
+
     let recipes = this.recipes.map(item => ({
-      title: item.title,
-      ingredients: item.ingredients,
-      imgSrc: item.thumbnail
-    }))
+        title: item.title,
+        ingredients: item.ingredients,
+        imgSrc: item.thumbnail
+    })).filter(item => re.test(item.ingredients) || re.test(item.title))
 
     return recipes
   }
@@ -26,11 +34,9 @@ class App extends Component {
   render() { 
     return (
       <div className="App">
-        <Navbar />
+        <Navbar onSearch={this.handleSearch} />
         <div className="container mt-10">
-          <div className="row">
-            <RecipeList recipes={this.getRecipesItems()} />
-          </div>
+          <RecipeList recipes={this.getRecipesItems()} />
         </div>
       </div>
     );
