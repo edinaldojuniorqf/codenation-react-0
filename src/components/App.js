@@ -1,16 +1,26 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Navbar from './Navbar'
-import RecipeItem from './RecipeItem'
+import RecipeList from './RecipeList'
 import recipes from '../sample_data/recipes.json'
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.recipes = recipes.results;
+    this.recipes = recipes.results
     this.state = {
       searchString: ''
-    };
+    }
+  }
+
+  getRecipesItems () {
+    let recipes = this.recipes.map(item => ({
+      title: item.title,
+      ingredients: item.ingredients,
+      imgSrc: item.thumbnail
+    }))
+
+    return recipes
   }
 
   render() { 
@@ -19,10 +29,7 @@ class App extends Component {
         <Navbar />
         <div className="container mt-10">
           <div className="row">
-            <RecipeItem />
-            <RecipeItem />
-            <RecipeItem />
-            <RecipeItem />
+            <RecipeList recipes={this.getRecipesItems()} />
           </div>
         </div>
       </div>
@@ -30,4 +37,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App
