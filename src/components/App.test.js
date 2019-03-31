@@ -84,4 +84,10 @@ describe('App', () => {
     wrapper.setState({'searchString': 'Thumbprints'})
     expect(wrapper.instance().getRecipesItems()).toHaveLength(1)
   })
+
+  test('Render \'No Resutls to show\' to render When not result in search', () => {
+    const wrapper = shallow(<App />)
+    wrapper.setState({searchString: '!@#!#@!#!#@!#'})
+    expect(wrapper.text()).toContain('No Results to show')
+  })
 })
