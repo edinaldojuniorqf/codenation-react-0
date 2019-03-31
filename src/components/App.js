@@ -36,7 +36,7 @@ class App extends Component {
       <div className="App">
         <Navbar onSearch={this.handleSearch} />
         <div className="container mt-10">
-          <RecipeList recipes={this.getRecipesItems()} />
+          <RecipeList recipes={this.getRecipesItems()} searchString={this.state.searchString} />
         </div>
       </div>
     );

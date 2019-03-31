@@ -15,13 +15,13 @@ describe('RecipeList', () => {
         "title": "Potato and Cheese Frittata",
         "href": "http:\/\/allrecipes.com\/Recipe\/Potato-and-Cheese-Frittata\/Detail.aspx",
         "ingredients": "cheddar cheese, eggs, olive oil, onions, potato, salt",
-        "imgSrc": "http:\/\/img.recipepuppy.com\/2.jpg"
+        "imgSrc": "http:\/\/img.recipepuppy.com\/2.jpg",
       },
       {
         "title": "Eggnog Thumbprints",
         "href": "http:\/\/allrecipes.com\/Recipe\/Eggnog-Thumbprints\/Detail.aspx",
         "ingredients": "brown sugar, butter, butter, powdered sugar, eggs, flour, nutmeg, rum, salt, vanilla extract, sugar",
-        "imgSrc": "http:\/\/img.recipepuppy.com\/3.jpg"
+        "imgSrc": "http:\/\/img.recipepuppy.com\/3.jpg",
       },
       {
         "title": "Succulent Pork Roast",
@@ -31,13 +31,15 @@ describe('RecipeList', () => {
       }
     ]
 
-    const wrapper = shallow(<RecipeList recipes={recipes} />)
+    const searchString = 'eggs'
+    const wrapper = shallow(<RecipeList recipes={recipes} searchString={searchString} />)
     const wrappersRecipeItem = wrapper.find(RecipeItem)
     expect(wrappersRecipeItem).toHaveLength(recipes.length)
-    wrappersRecipeItem.forEach((wrapper, index) => {
-      expect(wrapper.props().title).toBe(recipes[index].title)
-      expect(wrapper.props().ingredients).toBe(recipes[index].ingredients)
-      expect(wrapper.props().imgSrc).toBe(recipes[index].imgSrc)
+    wrappersRecipeItem.forEach((wrapperItem, index) => {
+      expect(wrapperItem.props().title).toBe(recipes[index].title)
+      expect(wrapperItem.props().ingredients).toBe(recipes[index].ingredients)
+      expect(wrapperItem.props().imgSrc).toBe(recipes[index].imgSrc)
+      expect(wrapperItem.props().searchString).toBe(searchString)
     })
   })
 })

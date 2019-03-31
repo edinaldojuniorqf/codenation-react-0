@@ -10,14 +10,16 @@ const RecipeList = (props) => (
           key={item.title}
           title={item.title}
           ingredients={item.ingredients}
-          imgSrc={item.imgSrc} />)
+          imgSrc={item.imgSrc}
+          searchString={props.searchString} />)
       )}
     </div>
   </div>
 )
 
 RecipeList.propType = {
-  recipes: PropTypes.array
+  recipes: PropTypes.array,
+  searchString: PropTypes.string
 }
 
 RecipeList.defaultProps = {

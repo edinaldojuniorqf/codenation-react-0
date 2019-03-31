@@ -43,7 +43,7 @@ describe('App', () => {
   })
 
   test('<RecipeList /> get props correctily', () => {    
-    const wrapper = mount(<App />)
+    const wrapper = shallow(<App />)
     const wrapperRecipeList = wrapper.find(RecipeList)
     const recipesProp = wrapperRecipeList.props().recipes
 
@@ -54,6 +54,9 @@ describe('App', () => {
       expect(item.ingredients).toBe(recipesProp[index].ingredients)
       expect(item.imgSrc).toBe(recipesProp[index].thumbnail)
     })
+
+    wrapper.setState({searchString: 'eggs'})    
+    expect(wrapper.state('searchString')).toBe(wrapper.find(RecipeList).props().searchString)
   })
 
   test('handleSearch Call alter state searchString', () => {
