@@ -1,15 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { mark } from '../utils/string'
+
+const Mark = (props) => {
+  let { text, higthligth } = props
+  let regex = new RegExp(`(${higthligth})`, 'gi')
+  let parts = text.split(regex)
+
+  return parts.map((part, index) => {
+    if (new RegExp(part, 'gi').test(higthligth)) {
+      return <mark key={index}>{ part }</mark>
+    }
+    
+    return part
+  })
+}
 
 const RecipeItem = (props) => (
   <div className="col-sm-3 mt-4">
     <div className="card">
       <img className="card-img-top img-fluid" src={props.imgSrc} alt={props.title} />
       <div className="card-body">
-        <h5 className="card-title" dangerouslySetInnerHTML={{__html: mark(props.searchString, props.title) }}></h5>
+        <h5 className="card-title"><Mark text={ props.title } higthligth={props.searchString} /></h5>
         <p className="card-text">
-          <strong>Ingredients: </strong><span dangerouslySetInnerHTML={{__html: mark(props.searchString, props.ingredients)}} />
+          <strong>Ingredients: </strong><Mark text={ props.ingredients } higthligth={props.searchString} />
         </p>
       </div>
     </div>
